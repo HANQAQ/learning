@@ -1,0 +1,25 @@
+%implements s1_b0_9pffl_ForcingFunction "C"
+
+%function ForcingFunction(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+
+flyBall::XDot_flyBall_T *_rtXdot;
+%closefile localVarDecl
+_rtXdot = %<(SLibCG_SE(SLibGetContStatesDerivativeStructPtr()))>;
+/*@>2ded*/_rtXdot->/*@>316f*/y_CSTATE/*@>8c3*/ = /*@>2d64*/flyBall_B./*@>3169*/vy_m;
+/*@>2df4*/_rtXdot->/*@>3172*/vy_CSTATE/*@>8cf*/ = /*@>2d6a*/flyBall_B./*@>316c*/ay_c;
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedForcingFunctionLocalVars", localVarDecl)>
+%endfunction
+%function ForcingFunctionFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void ForcingFunction(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%endfunction

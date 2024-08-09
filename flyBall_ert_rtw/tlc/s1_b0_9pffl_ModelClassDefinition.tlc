@@ -1,0 +1,24 @@
+%implements s1_b0_9pffl_ModelClassDefinition "C"
+%function ModelClassDefinition(block) Output
+%openfile tmp
+class flyBall final 
+{
+  public:
+    %<SLibFillInPublicClassMembers()>
+%<FcnStaticOnEmptyInitMethod()>    void initialize();
+%<FcnStaticOnEmptyOutputUpdateMethod()>    void step()%<AddConstToStepIfNeccessary("Outputs")>;
+%<FcnStaticOnEmptyTermMethod()>    void terminate()%<AddConstToTermIfNecessary("terminate")>;
+    flyBall();
+    ~flyBall();
+  protected:
+    %<SLibFillInProtectedClassMembers()>
+  private:
+    B_flyBall_T flyBall_B;
+    static P_flyBall_T flyBall_P;
+    X_flyBall_T flyBall_X;
+    %<SLibFillInPrivateClassMembers()>
+    %<SLibFillInLastPrivateClassMembers()>
+};
+%closefile tmp
+%return tmp
+%endfunction

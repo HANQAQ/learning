@@ -1,0 +1,25 @@
+%implements s1_b0_9pffl_ModelInitialize "C"
+
+%function ModelInitialize(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+%<SLibCGIRDumpSystemUserCode(1, "Start", "Header")>\
+%<SLibCGIRDumpSystemUserCode(1, "Start", "Body")>\
+%<SLibCGIRDumpSystemUserCode(1, "Start", "Trailer")>\
+/*@>2daf*/flyBall_X./*@>3197*/y_CSTATE/*@>90c*/ = /*@>1b97*/100.0;
+/*@>2db5*/flyBall_X./*@>319a*/vy_CSTATE/*@>919*/ = /*@>1b98*/0.0;
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function ModelInitializeFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void ModelInitialize(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 3, fcnProtoType)>
+%endfunction

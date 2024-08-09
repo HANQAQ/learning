@@ -1,0 +1,49 @@
+%implements s1_b0_9pffl_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+
+real_T rtb_Clock;
+real_T rtb_Gain;
+real_T rtb_Square1;
+real_T rtb_Square2;
+boolean_T OR;
+%closefile localVarDecl
+/*@>1b26*/rtb_Clock/*@>7cd*/ = /*@[2f9a*/%<(SLibCG_SE(LibGetT()))>/*@]*/;
+/*@>1b13*/OR/*@>3d0*/ = ((/*@>1b52*/rtb_Clock/*@>10a0*/ >= /*@>1b66*/10.0)/*@>3cf*/ || (/*@>2d9d*/flyBall_X./*@>30e0*/y_CSTATE/*@>10a5*/ <= /*@>1b67*/0.0));
+/*@>91c*/if (%<(SLibCG_SE(SLibCGIRIsSampleHit(1, 1)))>/*@>2fc2*/ && /*@>1b28*/OR) {
+    /*@[2fa0*/%<(RTMSetStopRequested(1))>/*@]*/;
+}
+/*@>2d16*/flyBall_B./*@>30b3*/y/*@>4b3*/ = /*@>2da3*/flyBall_X./*@>30e3*/y_CSTATE;
+/*@>2d1c*/flyBall_B./*@>30b6*/vy_m/*@>808*/ = /*@>2da9*/flyBall_X./*@>30e6*/vy_CSTATE;
+/*@>2d22*/flyBall_B./*@>30b9*/vy/*@>568*/ = /*@>2d28*/flyBall_B./*@>30bc*/vy_m;
+/*@>820*/if (/*@>1b30*/OR) {
+    /*@>1b4e*/rtb_Gain/*@>932*/ = /*@>2d34*/flyBall_B./*@>30c2*/vy/*@>92f*/ - /*@>2d76*/flyBall_P./*@>30d4*/target_vy;
+    /*@>1b3e*/rtb_Square2/*@>83c*/ = /*@>1b3c*/rtb_Gain/*@>1baf*/ * /*@>1b3a*/rtb_Gain;
+    /*@>1b40*/rtb_Gain/*@>849*/ = (/*@>2d3a*/flyBall_B./*@>30c5*/y/*@>10b0*/ - /*@>2d7c*/flyBall_P./*@>30d7*/target_y)/*@>1bab*/ * /*@>1b69*/0.33333333333333331;
+    /*@>1b46*/rtb_Square1/*@>84e*/ = /*@>1b44*/rtb_Gain/*@>1ba7*/ * /*@>1b42*/rtb_Gain;
+    /*@>1b48*/rtb_Gain/*@>85b*/ = (/*@>1b5a*/rtb_Clock/*@>10bb*/ - /*@>2d88*/flyBall_P./*@>30dd*/target_t)/*@>1ba3*/ * /*@>1b6a*/10.0;
+    /*@>2d52*/flyBall_B./*@>30d1*/reward/*@>81b*/ = ((/*@>1b62*/rtb_Gain/*@>1b9f*/ * /*@>1b64*/rtb_Gain/*@>111a*/ + /*@>1b5e*/rtb_Square1)/*@>1119*/ + /*@>1b60*/rtb_Square2)/*@>1b9b*/ * /*@>1b6b*/-0.01/*@>10d9*/ + /*@>1b6c*/0.5;
+} else {
+    /*@>2d2e*/flyBall_B./*@>30bf*/reward/*@>81e*/ = /*@>1b68*/-0.001;
+}
+if (%<(SLibCGIRIsSampleHit(1, 1))>) {
+    /*@>2d40*/flyBall_B./*@>30c8*/ay_c/*@>92d*/ = /*@>2d82*/flyBall_P./*@>30da*/control/*@>1965*/ - 9.8;
+    /*@>2d46*/flyBall_B./*@>30cb*/ay/*@>652*/ = /*@>2d4c*/flyBall_B./*@>30ce*/ay_c;
+}
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
+%function OutputsFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%endfunction
