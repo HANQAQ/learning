@@ -30,7 +30,8 @@
       "console": "integratedTerminal",
       "env": {
         "PYTHONPATH": "${workspaceFolder}",
-        "minGwPath": "F:\\vscode\\Microsoft VS Code\\mingw64\\mingw64\\bin"
+        "minGwPath": "F:\\vscode\\Microsoft VS Code\\mingw64\\mingw64\\bin",
+        "MODEL_PATH": "${workspaceFolder}\\model_save"
       }
   }
   ]
