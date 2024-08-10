@@ -20,7 +20,7 @@ if not os.path.exists(model_save_dir):
     os.makedirs(model_save_dir)
 
 #hyperparameters
-DEBUG_MODE = True
+DEBUG_MODE = False
 MAX_EPISODES = 2 if DEBUG_MODE else 2000
 MAX_STEPS = 110
 BATCH_SIZE = 64
@@ -51,9 +51,9 @@ for episode in range(MAX_EPISODES):
             break
     print(f"episode: {episode}, total reward: {episode_reward}")
     #save model
-    if episode % model_save_period == 0:
-        torch.save(agent.actor.state_dict(), os.path.join(model_save_dir, f'{episode}actor.pth'))
-        torch.save(agent.critic.state_dict(), os.path.join(model_save_dir, f'{episode}critic.pth'))
+    if (episode+1) % model_save_period == 0:
+        torch.save(agent.actor.state_dict(), os.path.join(model_save_dir, f'{episode + 1}actor.pth'))
+        torch.save(agent.critic.state_dict(), os.path.join(model_save_dir, f'{episode + 1}critic.pth'))
 
 
 

@@ -90,19 +90,19 @@ void flyBall::step()
   flyBall_B.y = flyBall_X.y_CSTATE;
   flyBall_B.vy_m = flyBall_X.vy_CSTATE;
   flyBall_B.vy = flyBall_B.vy_m;
-  if (OR) {
-    rtb_Gain = flyBall_B.vy - flyBall_P.target_vy;
-    rtb_Square2 = rtb_Gain * rtb_Gain;
-    rtb_Gain = (flyBall_B.y - flyBall_P.target_y) * 0.33333333333333331;
-    rtb_Square1 = rtb_Gain * rtb_Gain;
-    rtb_Gain = (rtb_Clock - flyBall_P.target_t) * 10.0;
-    flyBall_B.reward = ((rtb_Gain * rtb_Gain + rtb_Square1) + rtb_Square2) *
+  if (rtmIsMajorTimeStep((&flyBall_M))) {
+    if (OR) {
+      rtb_Gain = flyBall_B.vy - flyBall_P.target_vy;
+      rtb_Square2 = rtb_Gain * rtb_Gain;
+      rtb_Gain = (flyBall_B.y - flyBall_P.target_y) * 0.33333333333333331;
+      rtb_Square1 = rtb_Gain * rtb_Gain;
+      rtb_Gain = (rtb_Clock - flyBall_P.target_t) * 10.0;
+      flyBall_B.reward = ((rtb_Gain * rtb_Gain + rtb_Square1) + rtb_Square2) *
       -0.01 + 0.5;
   } else {
     flyBall_B.reward = -0.001;
   }
 
-  if (rtmIsMajorTimeStep((&flyBall_M))) {
     flyBall_B.ay_c = flyBall_P.control - 9.8;
     flyBall_B.ay = flyBall_B.ay_c;
   }
